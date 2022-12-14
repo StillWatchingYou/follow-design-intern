@@ -22,7 +22,7 @@ Future<List<ImageCenter>> createImageCenter() async {
     // then parse the JSON.
     List jsonResponse = json.decode(utf8.decode(response.bodyBytes)) as List;
     var x = jsonResponse.map((data) => new ImageCenter.fromJson(data)).toList();
-    print(x);
+
     return x;
   } else {
     // If the server did not return a 200 OK response,
@@ -35,11 +35,18 @@ class ImageCenter {
   final String nameVi;
   final String banner;
   final dynamic id;
+  final dynamic thumnail;
   const ImageCenter(
-      {required this.nameVi, required this.banner, required this.id});
+      {required this.nameVi,
+      required this.banner,
+      required this.id,
+      required this.thumnail});
   factory ImageCenter.fromJson(Map<String, dynamic> json) {
     return ImageCenter(
-        nameVi: json['nameVi'], banner: json['banner'], id: json['_id']);
+        nameVi: json['nameVi'],
+        banner: json['banner'],
+        id: json['_id'],
+        thumnail: json['thumnail']);
   }
 }
 
@@ -102,20 +109,19 @@ class FetchData {
   });
   factory FetchData.fromJson(Map<String, dynamic> json) {
     return FetchData(
-      coverimage: json['banner'],
-      nameVi: json['nameVi'],
-      description: json['description'],
-      tag: json['tag'],
-      time: json['time'],
-      frequency: json['frequency'],
-      timesuggest: json['timesuggest'],
-      listplace: json['listplace'],
-      listactiongroup: json['listactiongroup'],
-      listage: json['listage'],
-      listpartner: json['listpartner'],
-      tool: json['tool'],
-      target: json['target']
-    );
+        coverimage: json['banner'],
+        nameVi: json['nameVi'],
+        description: json['description'],
+        tag: json['tag'],
+        time: json['time'],
+        frequency: json['frequency'],
+        timesuggest: json['timesuggest'],
+        listplace: json['listplace'],
+        listactiongroup: json['listactiongroup'],
+        listage: json['listage'],
+        listpartner: json['listpartner'],
+        tool: json['tool'],
+        target: json['target']);
   }
 }
 
@@ -136,7 +142,7 @@ Future<List<SlideContent>> createSlideContent() async {
     List jsonResponse = json.decode(utf8.decode(response.bodyBytes)) as List;
     var x =
         jsonResponse.map((data) => new SlideContent.fromJson(data)).toList();
-    print(x);
+
     return x;
   } else {
     // If the server did not return a 200 OK response,
@@ -150,18 +156,23 @@ class SlideContent {
   final List listContent;
   final dynamic collid;
   final dynamic id;
+  final String banner;
   const SlideContent(
       {required this.nameVi,
       required this.listContent,
       required this.collid,
-      required this.id});
+      required this.id,
+      required this.banner});
   factory SlideContent.fromJson(Map<String, dynamic> json) {
     return SlideContent(
         nameVi: json['nameVi'],
         listContent: json['listContent'],
         collid: json['collid'],
-        id: json['_id']);
+        id: json['_id'],
+        banner: json['thumnail']);
   }
+
+  map(ClipRRect Function(dynamic e) param0) {}
 }
 
 Future<InDots> createInDots(String collid) async {
@@ -182,7 +193,7 @@ Future<InDots> createInDots(String collid) async {
         json.decode(utf8.decode(response.bodyBytes));
     // var x = jsonResponse.map((data) => new InDots.fromJson(data)).toList();
     var x = InDots.fromJson(jsonResponse);
-    print(x);
+
     return x;
   } else {
     // If the server did not return a 200 OK response,
